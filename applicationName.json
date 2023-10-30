@@ -1,0 +1,232 @@
+[
+    {
+        "name": "account-management",
+        "maxPod": 4
+    },
+
+    {
+        "name": "aota",
+        "maxPod": 3
+    },
+    {
+        "name": "api-gateway",
+        "maxPod": 3
+    },
+
+    {
+        "name": "billaccounting",
+        "maxPod": 5
+    },
+    {
+        "name": "billcollection",
+        "maxPod": 5
+    },
+    {
+        "name": "billdocgenservice",
+        "maxPod": 11
+    },
+    {
+        "name": "billeventprocessor-qaeventprocessor",
+        "maxPod": 12
+    },
+    {
+        "name": "billgenerator",
+        "maxPod": 11
+    },
+    {
+        "name": "billinvoice",
+        "maxPod": 10
+    },
+    {
+        "name": "billreportservice-billreport",
+        "maxPod": 3
+    },
+    {
+        "name": "bpf-service",
+        "maxPod": 5
+    },
+    {
+        "name": "bss-apigateway-apim-aio",
+        "maxPod": 4
+    },
+    {
+        "name": "bss-apigateway-apim-internal-gw",
+        "maxPod":4
+    },
+    {
+        "name": "bssjobschedule",
+        "maxPod": 3
+    },
+    {
+        "name": "case-management",
+        "maxPod": 3
+    },
+    {
+        "name": "ccsprovgw-ccsprovision",
+        "maxPod": 9
+    },
+    {
+        "name": "ccsruleengine-ruleengine",
+        "maxPod": 3
+    },
+    {
+        "name": "ccssubacc-subacc",
+        "maxPod": 3
+    },
+    {
+        "name": "cgfm-collector-collector",
+        "maxPod": 12
+    },
+    {
+        "name": "cgfm-loader-loader",
+        "maxPod": 12
+    },
+    {
+        "name": "cgfmapi-cfgmapigw",
+        "maxPod": 3
+    },
+    {
+        "name": "cgfmgenerator-generator",
+        "maxPod": 4
+    },
+    {
+        "name": "corenetworkservice",
+        "maxPod": 3
+    },
+    {
+        "name": "dep-inventory",
+        "maxPod": 3
+    },
+    {
+        "name": "dep-spm",
+        "maxPod": 3
+    },
+    {
+        "name": "document-generation-document",
+        "maxPod": 3
+    },
+    {
+        "name": "document-service",
+        "maxPod": 8
+    },
+    {
+        "name": "eportal-eportal",
+        "maxPod": 3
+    },
+    {
+        "name": "filetransfer-filetransfer",
+        "maxPod": 3
+    },
+    {
+        "name": "mnp",
+        "maxPod": 3
+    },
+    {
+        "name": "mysql-backup-deployment",
+        "maxPod": 4
+    },
+    {
+        "name": "notification-gateway",
+        "maxPod": 3
+    },
+    {
+        "name": "ocd-portal",
+        "maxPod": 3
+    },
+    {
+        "name": "order-capture-ordercapture",
+        "maxPod": 3
+    },
+    {
+        "name": "order-management",
+        "maxPod": 15
+    },
+    {
+        "name": "paymentgateway",
+        "maxPod": 3
+    },
+    {
+        "name": "plan-management",
+        "maxPod": 6
+    },
+    {
+        "name": "portal",
+        "maxPod": 3
+    },
+    {
+        "name": "portal-gateway",
+        "maxPod": 3
+    },
+    {
+        "name": "product-management",
+        "maxPod": 3
+    },
+    {
+        "name": "product-registry",
+        "maxPod": 3
+    },
+    {
+        "name": "quote-management",
+        "maxPod": 3
+    },
+    {
+        "name": "rate-composer-service-rate",
+        "maxPod": 1
+    },
+    {
+        "name": "ratingorchestrator-ro",
+        "maxPod": 3
+    },
+    {
+        "name": "scheduler",
+        "maxPod": 3
+    },
+    {
+        "name": "sftp-service-sftpservice",
+        "maxPod": 3
+    },
+    {
+        "name": "shipment-integration",
+        "maxPod": 3
+    },
+    {
+        "name": "smdp-integration",
+        "maxPod": 3
+    },
+    {
+        "name": "stock-inventory-stockinventory",
+        "maxPod": 3
+    },
+    {
+        "name": "stock-management",
+        "maxPod": 3
+    },
+    {
+        "name": "template-management",
+        "maxPod": 3
+    },
+    {
+        "name": "template-management-portal",
+        "maxPod": 3
+    },
+    {
+        "name": "throttling-service",
+        "maxPod": 4
+    },
+    {
+        "name": "uccrequestservice-uccrequestservice",
+        "maxPod": 3
+    },
+    {
+        "name": "user-management",
+        "maxPod": 3
+    },
+    {
+        "name": "virtual-inventory",
+        "maxPod": 5
+    },
+    {
+        "name": "warehouse-interface",
+        "maxPod": 3
+    }
+]

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" />
+    <!-- <script defer type="module" src="./script.js"></script> -->
+    <!-- <script defer src="script.js"></script> -->
+    <title>CPU & Memory Utilization</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+    <h1>CPU & Memory utilization graph report</h1>
+    <p>
+        This is a paragraph to describe how the page work
+    </p>
+    <!-- <input type="file" id="excel-file" accept=".xlsx" > -->
+
+    <h3>Select your file here</h3>
+    <input type="file" id="excel-file" name="myfile" accept=".xlsx" required>
+
+    <h3>Select parameter</h3>
+    <select id="parameter-select" name="sheet">
+        <option value="no_sheet" selected>Select here</option>
+        <option value="CPU_usage">CPU usage</option>
+        <option value="Memory_usage">Memory usage</option>
+        <option value="CPU_utilization">CPU utilization</option>
+        <option value="Memory_utilization">Memory utilization</option>
+            <!-- Options will be added dynamically using JavaScript -->
+    </select>
+
+    <h3>Select the application</h3>
+    <select id="application-select" name="application"><option value="no_application" selected>No application selected</option>
+            <!-- Options will be added dynamically using JavaScript -->
+    </select>
+
+    <h3>Select the date</h3>
+    <select id="date-from" name="date-from"><option value="no_date" selected>Date from</option>
+            <!-- Options will be added dynamically using JavaScript -->
+    </select> <br></br>
+    <select id="date-to" name="date-to"><option value="no_date" selected>Date to</option>
+        <!-- Options will be added dynamically using JavaScript -->
+    </select> <br></br>
+
+    <div class="display-button">
+        <button id="display-button">Show trend</button>
+    </div>
+
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+      
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

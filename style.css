@@ -1,0 +1,27 @@
+body {
+    background-color: antiquewhite;
+/*    background-color: white; */
+}
+
+select {
+    background-color: blanchedalmond;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgb(189, 59, 165);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+canvas {
+    size: 200%
+}

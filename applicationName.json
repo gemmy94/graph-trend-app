@@ -23,7 +23,7 @@
     },
     {
         "name": "billdocgenservice",
-        "maxPod": 11
+        "maxPod": 20
     },
     {
         "name": "billeventprocessor-qaeventprocessor",

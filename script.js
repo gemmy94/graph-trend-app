@@ -50,6 +50,9 @@ var dataChartInXDate;
 var dataChartInXTime;
 var dataChartInY;
 
+var dataRequest = [];
+var dataLimit = [];
+
 var dataDate = [];
 var dateIndex = [];
 
@@ -144,6 +147,8 @@ function createArrayData(rows) {
 // Create data for the chart for CPU_utilisation
 function createData() {
   dataChart = [];
+  dataRequest = [];
+  dataLimit = [];
   dataChartXDate = []; // 1D array
   dataChartXTime = []; // 1D array
   dataChartY = new Array(applications[indexApp].maxPod); // maxPod rows array
@@ -173,28 +178,35 @@ function createData() {
       }
 
       if (countIn == true) {
-          // dataChartXDate.push(row['Date']);
-          // dataChartXTime.push(row['Time']);
-          dataChartXDate[countTime] = row['Date'];
-          dataChartXTime[countTime] = row['Time'];
-          // if (row[parameterChosen]) {
-          //   dataChartY[countPodNum].push(row[parameterChosen]);
-          // } else {
-          //   dataChartY[countPodNum].push('');
-          // }
+        // Date and Time data
+        dataChartXDate[countTime] = row['Date'];  
+        dataChartXTime[countTime] = row['Time'];
 
-          if (row[parameterChosen]) {
-            dataChartY[countPodNum][countTime] = row[parameterChosen];
-          } else {
-            dataChartY[countPodNum][countTime] = 'noNumber'; // insert data of null when there is nothing
-          }
+        // Request and limit data of parameterChosen
+        if (parameterChosen == 'CPU_usage') {
+          dataRequest[countTime] = row['CPU_requests'];
+          dataLimit[countTime] = row['CPU_limit'];
+        } else if (parameterChosen == 'Memory_usage') {
+          dataRequest[countTime] = row['Memory_requests'];
+          dataLimit[countTime] = row['Memory_limit'];
+        }
 
-          countPodNum++;
-          // if (countPodNum == applications[indexApp].maxPod) countPodNum = 0;
+        // parameterChosen data
+        if (row[parameterChosen]) {
+          // console.log('ok: ', row);  // use to check the problem date
+          dataChartY[countPodNum][countTime] = row[parameterChosen];
+        } else {
+          dataChartY[countPodNum][countTime] = 'noNumber'; // insert data of null when there is nothing
+        }
+
+        countPodNum++;
+        
       }
 
   } );
 
+  dataRequest = stringToNumber(dataRequest);
+  dataLimit = stringToNumber(dataLimit);
   
   // Replace string to number
   for (let i = 0; i < applications[indexApp].maxPod; i++){
@@ -216,8 +228,8 @@ function createData() {
     }
   }
 
-  console.log(dateIndex);
-  console.log(dataChartY);
+  // console.log(dateIndex);
+  // console.log(dataChartY);
 
   for (let i = 0; i < dateIndex.length; i++) {
     dataChartInXDate.push(dataChartXDate[dateIndex[i]]);
@@ -230,7 +242,7 @@ function createData() {
     }
     
   }
-  console.log(dataChartInY);
+  // console.log(dataChartInY);
 
   for (let i = 0; i < applications[indexApp].maxPod; i++) {
     dataChart[i] = {
@@ -242,6 +254,27 @@ function createData() {
       borderColor: colorTable[i]
     }
   }
+
+  if (parameterChosen == 'CPU_usage' || parameterChosen == 'Memory_usage') {
+    dataChart.push({      // push dataRequest
+      label: 'Request',
+      data: dataRequest,
+      borderColor: 'black',
+      pointRadius: 0,
+      tension: 0.4,
+      fill: false,
+      borderDash: [10,5]
+    });
+    dataChart.push({      // push dataLimit
+      label: 'Limit',
+      data: dataLimit,
+      borderColor: 'red',
+      pointRadius: 0,
+      tension: 0.4,
+      fill: false,
+      borderDash: [10,5]
+    });
+  } 
 
 }
 
@@ -277,12 +310,15 @@ function createChart(){
   parameter.forEach( (x) => { 
     if (x['name'] == parameterChosen) {unitParameter = x['unit'];}
    } );
-  new Chart(ctx, {
+
+  const data = {
+    labels: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataChartXDate : ((selectDateFrom.value == selectDateTo.value) ? dataChartInXTime : dataChartInXDate),
+    datasets: dataChart
+  };
+
+  var config = {
     type: 'line',
-    data: {
-      labels: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataChartXDate : ((selectDateFrom.value == selectDateTo.value) ? dataChartInXTime : dataChartInXDate),
-      datasets: dataChart
-    },
+    data,
     options: {
       title: {
         display: true,
@@ -292,12 +328,28 @@ function createChart(){
                 (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? ('Date to: ' + dataDate[dataDate.length-1]) : ('Date to: ' + selectDateTo.value) ]
       },
       scales: {
-        y: {
-          beginAtZero: true
-        }
+        yAxes: [
+          {
+            display: true,
+            ticks: {
+              min: 0
+            }
+          }
+        ]
       }
     }
-  });
+  };
+
+  const myChart = new Chart(ctx, config);
+
+  function maxScale (chart) {
+    if (parameterChosen == 'CPU_usage' || parameterChosen == 'Memory_usage') {
+      chart.config.options.scales.yAxes[0].ticks.max = Math.max(...dataLimit);
+      chart.update();
+    }
+    console.log(chart);
+  }
+
 }
 
 

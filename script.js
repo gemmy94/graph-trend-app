@@ -56,6 +56,7 @@ var dataLimit = [];
 var dataDate = [];
 var dateIndex = [];
 
+var myChart;
 
 const selectParameter = document.getElementById('parameter-select');
 const selectApp = document.getElementById('application-select');
@@ -340,7 +341,7 @@ function createChart(){
     }
   };
 
-  const myChart = new Chart(ctx, config);
+  myChart = new Chart(ctx, config);
 
   function maxScale (chart) {
     if (parameterChosen == 'CPU_usage' || parameterChosen == 'Memory_usage') {
@@ -356,6 +357,7 @@ function createChart(){
 // Display button to 
 document.getElementById('display-button').addEventListener('click', function () {
   dateIndex = [];
+  if(myChart) {myChart.destroy();}
   createData();
   createChart();
 });

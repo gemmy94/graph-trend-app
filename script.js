@@ -52,6 +52,8 @@ var dataChartInY;
 
 var dataRequest = [];
 var dataLimit = [];
+var dataRequestIn = [];
+var dataLimitIn = [];
 
 var dataDate = [];
 var dateIndex = [];
@@ -150,6 +152,8 @@ function createData() {
   dataChart = [];
   dataRequest = [];
   dataLimit = [];
+  dataRequestIn = [];
+  dataLimitIn = [];
   dataChartXDate = []; // 1D array
   dataChartXTime = []; // 1D array
   dataChartY = new Array(applications[indexApp].maxPod); // maxPod rows array
@@ -235,6 +239,8 @@ function createData() {
   for (let i = 0; i < dateIndex.length; i++) {
     dataChartInXDate.push(dataChartXDate[dateIndex[i]]);
     dataChartInXTime.push(dataChartXTime[dateIndex[i]]);
+    dataRequestIn.push(dataRequest[dateIndex[i]]);
+    dataLimitIn.push(dataLimit[dateIndex[i]]);
   }
 
   for (let k = 0; k < applications[indexApp].maxPod; k++) {
@@ -259,7 +265,7 @@ function createData() {
   if (parameterChosen == 'CPU_usage' || parameterChosen == 'Memory_usage') {
     dataChart.push({      // push dataRequest
       label: 'Request',
-      data: dataRequest,
+      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataRequest : dataRequestIn,
       borderColor: 'black',
       pointRadius: 0,
       tension: 0.4,
@@ -268,7 +274,7 @@ function createData() {
     });
     dataChart.push({      // push dataLimit
       label: 'Limit',
-      data: dataLimit,
+      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataLimit : dataLimitIn,
       borderColor: 'red',
       pointRadius: 0,
       tension: 0.4,

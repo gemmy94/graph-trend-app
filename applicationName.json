@@ -119,7 +119,7 @@
     },
     {
         "name": "mnp",
-        "maxPod": 3
+        "maxPod": 4
     },
     {
         "name": "mysql-backup-deployment",

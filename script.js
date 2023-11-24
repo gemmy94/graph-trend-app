@@ -189,11 +189,21 @@ function createData() {
 
         // Request and limit data of parameterChosen
         if (parameterChosen == 'CPU_usage') {
-          dataRequest[countTime] = row['CPU_requests'];
-          dataLimit[countTime] = row['CPU_limit'];
+          if (row['CPU_requests'] && row['CPU_limit']) {
+            dataRequest[countTime] = row['CPU_requests'];
+            dataLimit[countTime] = row['CPU_limit'];
+          } else {
+            dataRequest[countTime] = 'noNumber';
+            dataLimit[countTime] = 'noNumber';
+          }
         } else if (parameterChosen == 'Memory_usage') {
-          dataRequest[countTime] = row['Memory_requests'];
-          dataLimit[countTime] = row['Memory_limit'];
+          if (row['Memory_requests'] && row['Memory_limit']) {
+            dataRequest[countTime] = row['Memory_requests'];
+            dataLimit[countTime] = row['Memory_limit'];
+          } else {
+            dataRequest[countTime] = 'noNumber';
+            dataLimit[countTime] = 'noNumber';
+          }
         }
 
         // parameterChosen data

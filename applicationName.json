@@ -139,7 +139,7 @@
     },
     {
         "name": "order-management",
-        "maxPod": 15
+        "maxPod": 28
     },
     {
         "name": "paymentgateway",

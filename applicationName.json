@@ -126,6 +126,10 @@
         "maxPod": 4
     },
     {
+        "name": "mysql-om-oct28-mysqlinnocluster-node",
+        "maxPod": 5
+    },
+    {
         "name": "notification-gateway",
         "maxPod": 3
     },

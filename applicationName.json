@@ -67,15 +67,15 @@
     },
     {
         "name": "ccsruleengine-ruleengine",
-        "maxPod": 3
+        "maxPod": 6
     },
     {
         "name": "ccssubacc-subacc",
-        "maxPod": 3
+        "maxPod": 5
     },
     {
         "name": "cgfm-collector-collector",
-        "maxPod": 12
+        "maxPod": 5
     },
     {
         "name": "cgfm-loader-loader",
@@ -91,7 +91,7 @@
     },
     {
         "name": "corenetworkservice",
-        "maxPod": 3
+        "maxPod": 10
     },
     {
         "name": "dep-inventory",
@@ -179,7 +179,7 @@
     },
     {
         "name": "ratingorchestrator-ro",
-        "maxPod": 3
+        "maxPod": 5
     },
     {
         "name": "scheduler",

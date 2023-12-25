@@ -33,7 +33,10 @@ const colorTable = ['red', 'blue', 'green', 'black', 'yellow', 'purple',
                     'rbga(185,92,20,1)', 'rgba(219,37,200,0.8)', 'rgba(191,138,118,0.8)', 
                     'rgba(12,240,221,0.8)', 'rgba(8,36,66,1)', 'rgba(60,105,44,1)',
                     'rgba(58,237,58,0.8)', 'rgba(39,51,79,0.8)', 'rgba(13,156,242,0.89)',
-                    'rgba(220,171,244,0.89)', 'rgba(239,141,159,0.89)' ];
+                    'rgba(220,171,244,0.89)', 'rgba(239,141,159,0.89)', 'rgba(189,61,134,0.8)',
+                    'rgba(63,181,161,0.8)', 'rgba(166,181,63,0.8)', 'rgba(74,78,107,0.49)',
+                    'rgba(239,12,12,0.47)', 'rgba(137,86,49,0.96)', 'rgba(56,112,191,0.93)',
+                    'rgba(143,56,191,1)' ];
 
 
 var dataJson;
@@ -52,8 +55,10 @@ var dataChartInY;
 
 var dataRequest = [];
 var dataLimit = [];
+var dataThresHold = [];
 var dataRequestIn = [];
 var dataLimitIn = [];
+var dataThresHoldIn = [];
 
 var dataDate = [];
 var dateIndex = [];
@@ -154,6 +159,8 @@ function createData() {
   dataLimit = [];
   dataRequestIn = [];
   dataLimitIn = [];
+  dataThresHold = [];
+  dataThresHoldIn = [];
   dataChartXDate = []; // 1D array
   dataChartXTime = []; // 1D array
   dataChartY = new Array(applications[indexApp].maxPod); // maxPod rows array
@@ -220,8 +227,12 @@ function createData() {
 
   } );
 
+  // Turn string data to Number
   dataRequest = stringToNumber(dataRequest);
   dataLimit = stringToNumber(dataLimit);
+  console.log(dataLimit);
+  dataThresHold = dataLimit.map( (item) => item/100*70 );
+  console.log(dataThresHold);
   
   // Replace string to number
   for (let i = 0; i < applications[indexApp].maxPod; i++){
@@ -251,6 +262,7 @@ function createData() {
     dataChartInXTime.push(dataChartXTime[dateIndex[i]]);
     dataRequestIn.push(dataRequest[dateIndex[i]]);
     dataLimitIn.push(dataLimit[dateIndex[i]]);
+    dataThresHoldIn.push(dataThresHold[dateIndex[i]]);
   }
 
   for (let k = 0; k < applications[indexApp].maxPod; k++) {
@@ -288,6 +300,15 @@ function createData() {
       borderColor: 'red',
       pointRadius: 0,
       tension: 0.4,
+      fill: false,
+      borderDash: [10,5]
+    });
+    dataChart.push({      // push dataLimit
+      label: 'Threshold 70%',
+      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataThresHold : dataThresHoldIn,
+      borderColor: 'green',
+      pointRadius: 0,
+      tension: 0.6,
       fill: false,
       borderDash: [10,5]
     });

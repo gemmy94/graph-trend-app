@@ -232,5 +232,41 @@
     {
         "name": "warehouse-interface",
         "maxPod": 5
+    },
+    {
+        "name": "mno-tot-cb7-crdlcluster",
+        "maxPod": 10
+    },
+    {
+        "name": "mno-tot-crdl-crdlcluster",
+        "maxPod": 10
+    },
+    {
+        "name": "mysql-om-oct28-mysqlinnocluster-node",
+        "maxPod": 3
+    },
+    {
+        "name": "mysql-tot-new-mysqlinnocluster-node",
+        "maxPod": 3
+    },
+    {
+        "name": "mysql-tot-up-mysqlinnocluster-node",
+        "maxPod": 3
+    },
+    {
+        "name": "opensource-elasticmno-client",
+        "maxPod": 3
+    },
+    {
+        "name": "opensource-elasticmno-data",
+        "maxPod": 4
+    },
+    {
+        "name": "opensource-elasticmno-master",
+        "maxPod": 3
+    },
+    {
+        "name": "zookeeper-zk",
+        "maxPod": 4
     }
 ]

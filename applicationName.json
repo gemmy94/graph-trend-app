@@ -39,7 +39,7 @@
     },
     {
         "name": "billreportservice-billreport",
-        "maxPod": 3
+        "maxPod": 10
     },
     {
         "name": "bpf-service",

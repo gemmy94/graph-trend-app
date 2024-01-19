@@ -38,7 +38,7 @@
         "maxPod": 10
     },
     {
-        "name": "billreportservice-billreport",
+        "name": "billreportservice",
         "maxPod": 3
     },
     {
@@ -74,11 +74,11 @@
         "maxPod": 5
     },
     {
-        "name": "cgfm-collector-collector",
+        "name": "collector",
         "maxPod": 5
     },
     {
-        "name": "cgfm-loader-loader",
+        "name": "loader",
         "maxPod": 12
     },
     {
@@ -102,7 +102,7 @@
         "maxPod": 3
     },
     {
-        "name": "document-generation-document",
+        "name": "document-generation",
         "maxPod": 3
     },
     {

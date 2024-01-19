@@ -103,7 +103,7 @@
     },
     {
         "name": "document-generation-document",
-        "maxPod": 5
+        "maxPod": 3
     },
     {
         "name": "document-service",

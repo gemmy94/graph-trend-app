@@ -227,10 +227,10 @@
     },
     {
         "name": "virtual-inventory",
-        "maxPod": 5
+        "maxPod": 14
     },
     {
         "name": "warehouse-interface",
-        "maxPod": 3
+        "maxPod": 5
     }
 ]

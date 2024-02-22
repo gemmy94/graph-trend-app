@@ -31,14 +31,15 @@
     },
     {
         "name": "billgenerator",
-        "maxPod": 11
+        "maxPod": 14
     },
     {
         "name": "billinvoice",
-        "maxPod": 10
+        "maxPod": 14
     },
     {
         "name": "billreportservice",
+        "preName": ["billreportservice-billreport"],
         "maxPod": 3
     },
     {
@@ -75,7 +76,7 @@
     },
     {
         "name": "collector",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "loader",
@@ -86,8 +87,9 @@
         "maxPod": 3
     },
     {
-        "name": "cgfmgenerator-generator",
-        "maxPod": 4
+        "name": "generator",
+        "notName": ["billgenerator"],
+        "maxPod": 10
     },
     {
         "name": "corenetworkservice",
@@ -143,7 +145,20 @@
     },
     {
         "name": "order-management",
+        "notName": ["order-management-new2a", "order-management-newcam", "order-management-recovery2"],
         "maxPod": 28
+    },
+    {
+        "name": "order-management-new2a-mnp",
+        "maxPod": 3
+    },
+    {
+        "name": "order-management-newcam",
+        "maxPod": 3
+    },
+    {
+        "name": "order-management-recovery2",
+        "maxPod": 3
     },
     {
         "name": "paymentgateway",
@@ -159,7 +174,7 @@
     },
     {
         "name": "portal-gateway",
-        "maxPod": 3
+        "maxPod": 4
     },
     {
         "name": "product-management",
@@ -187,7 +202,7 @@
     },
     {
         "name": "sftp-service-sftpservice",
-        "maxPod": 3
+        "maxPod": 5
     },
     {
         "name": "shipment-integration",

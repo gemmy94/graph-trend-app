@@ -179,10 +179,44 @@ function createData() {
   var countPodNum = 0;
   var countTime = 0;
 
+  // Check if string includes in an array
+  function checkStrInclude(str, arr) {
+    var check = false;
+    if (!arr) {
+      return false;
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        if (str.includes(arr[i])) {
+            check = true;
+            break;
+        }
+      }
+    }
+    return check;
+  }
+
+  // Check if string not include in an array
+  function checkStrNotInclude(str,arr) {
+    var check = true;
+    if (!arr) {
+        return true;
+    } else {
+        for (let i = 0; i < arr.length; i++) {
+            if (str.includes(arr[i])) {
+                check = false;
+                break;
+            }
+        }
+    }
+    return check;
+}
+
   dataJson.forEach( (row) => {
 
-      if (row.PodName.includes(applications[indexApp].name)) {
+      if (row.PodName.includes(applications[indexApp].name) || checkStrInclude(row.PodName,applications[indexApp].preName) && checkStrNotInclude(row.PodName,applications[indexApp].notName)) {
           countIn = true;
+          console.log(row.PodName);
+          console.log(applications[indexApp].preName);
       } else {
           if (countIn == true) countTime++;
           countIn = false;

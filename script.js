@@ -432,6 +432,3 @@ document.getElementById('display-button').addEventListener('click', function () 
   createData();
   createChart();
 });
-
-
-

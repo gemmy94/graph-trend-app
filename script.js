@@ -1,12 +1,10 @@
 console.log("Hello world");
 
-import applications from './applicationName.json' assert {type:'json'};
-
-// Create the index of each application in the array of applications
-applications.forEach( (app,index) => {
-  // app.index = applications.indexOf(app); // first way of creation
-  app.index = index; // second way of creation
-} );
+// import applications from './applicationName.json'  assert {type:'json'};
+var applications = [];
+fetch('./applicationName.json')
+    .then((response) => response.json())
+    .then((json) => json.forEach( (meo) => applications.push(meo) )); // push json value into applications
 
 // Create parameter and unit
 const parameter = [
@@ -39,7 +37,11 @@ const colorTable = ['red', 'blue', 'green', 'black', 'yellow', 'purple',
                     'rgba(143,56,191,1)' ];
 
 
+// Setup variable
 var dataJson;
+var timeStample = [];
+var timeStample_date = [];
+var timeStample_time = [];
 var indexApp;
 var parameterChosen;
 
@@ -65,6 +67,8 @@ var dateIndex = [];
 
 var myChart;
 
+
+// Button create
 const selectParameter = document.getElementById('parameter-select');
 const selectApp = document.getElementById('application-select');
 const selectDateFrom = document.getElementById('date-from');
@@ -87,35 +91,29 @@ document.getElementById('excel-file').addEventListener('change', function(evt) {
     // and save it to variable dataJson
     const workSheet = workBook.Sheets['tt2r2']; // choose worksheet
     dataJson = XLSX.utils.sheet_to_json(workSheet);
+    
+    console.log(dataJson); // show dataJson
 
-    var date0 = dataJson[0].Date;
-    dataDate.push(date0);
-    for (let i = 1; i < dataJson.length; i++) {
-      if (dataJson[i].Date != date0) {
-        date0 = dataJson[i].Date;
-        dataDate.push(date0);
+    dataJson.forEach ( (date) => {
+      timeStample.push(date.TimeStamp);
+      timeStample_date.push(date.TimeStamp.split(" ")[0]);
+      timeStample_time.push(date.TimeStamp.split(" ")[1]);
+    } );
+    console.log(timeStample);
+    console.log(timeStample_date);
+    console.log(timeStample_time);
+
+    // Identify the indexApp
+    applications.forEach( (meo,index) => {
+      if ( meo.name == dataJson[0].Application ) {
+        indexApp = index;
       }
-    }
-
-    console.log(dataDate);
-
-    // Create option for select dateFrom
-    dataDate.forEach ( (date) => {
-      var option = document.createElement('option');
-      option.value = date;
-      option.textContent = date;
-      selectDateFrom.appendChild(option);
     } );
-    // Create option for select dateTo
-    dataDate.forEach ( (date) => {
-      var option = document.createElement('option');
-      option.value = date;
-      option.textContent = date;
-      selectDateTo.appendChild(option);
-    } );
+    console.log("This is the indexApp value: ", indexApp);
+
+
 
   };
-
   reader.readAsArrayBuffer(file);
 
 });
@@ -124,6 +122,15 @@ document.getElementById('excel-file').addEventListener('change', function(evt) {
 selectParameter.addEventListener('change', (e) => {
   parameterChosen = e.target.value;
   console.log("Parameter selected: ", parameterChosen);
+});
+
+// Select date From
+selectDateFrom.addEventListener('change', (e) => {
+  console.log('You choose date from: ', e.target.value);
+});
+// Select date To
+selectDateTo.addEventListener('change', (e) => {
+  console.log('You choose date from: ', e.target.value);
 });
 
 // String to Number, erase special character and make it number
@@ -142,15 +149,6 @@ function stringToNumber(arr) {
   return stringNumber;
 }
 
-
-// Create function of initial data 
-function createArrayData(rows) {
-  var arr = new Array(rows);
-  for (let i = 0; i < rows; i++ ) {
-    arr[i] = [];
-  }
-  return arr;
-}
 
 // Create data for the chart for CPU_utilisation
 function createData() {
@@ -179,94 +177,81 @@ function createData() {
   var countPodNum = 0;
   var countTime = 0;
 
-  // Check if string includes in an array
-  function checkStrInclude(str, arr) {
-    var check = false;
-    if (!arr) {
-      return false;
-    } else {
-      for (let i = 0; i < arr.length; i++) {
-        if (str.includes(arr[i])) {
-            check = true;
-            break;
+
+  dataJson.forEach( (row,rowindex) => {
+    console.log(countPodNum, countTime,rowindex);
+      if ( rowindex == 0 ) {
+        dataChartXDate[countTime] = timeStample_date[rowindex];
+        dataChartXTime[countTime] = timeStample_time[rowindex];
+
+        if ( row[parameterChosen] ) {
+          dataChartY[countPodNum][countTime] = row[parameterChosen];
+        } else {
+          dataChartY[countPodNum][countTime] = 'noNumber';
         }
-      }
-    }
-    return check;
-  }
 
-  // Check if string not include in an array
-  function checkStrNotInclude(str,arr) {
-    var check = true;
-    if (!arr) {
-        return true;
-    } else {
-        for (let i = 0; i < arr.length; i++) {
-            if (str.includes(arr[i])) {
-                check = false;
-                break;
-            }
-        }
-    }
-    return check;
-}
+        if (timeStample_time[rowindex] != timeStample_time[rowindex+1]){ 
+          countPodNum = 0; 
+          countTime++; 
+        } else { countPodNum++; }
 
-  dataJson.forEach( (row) => {
-
-      if (row.PodName.includes(applications[indexApp].name) || checkStrInclude(row.PodName,applications[indexApp].preName) && checkStrNotInclude(row.PodName,applications[indexApp].notName)) {
-          countIn = true;
-          console.log(row.PodName);
-          console.log(applications[indexApp].preName);
-      } else {
-          if (countIn == true) countTime++;
-          countIn = false;
-          countPodNum = 0;
-      }
-
-      if (countIn == true) {
-        // Date and Time data
-        dataChartXDate[countTime] = row['Date'];  
-        dataChartXTime[countTime] = row['Time'];
-
+      } else if ( rowindex != dataJson.length-1 ) {
         // Request and limit data of parameterChosen
         if (parameterChosen == 'CPU_usage') {
-          if (row['CPU_requests'] && row['CPU_limit']) {
+          if (row['CPU_requests'] && row['CPU_limits']) {
             dataRequest[countTime] = row['CPU_requests'];
-            dataLimit[countTime] = row['CPU_limit'];
+            dataLimit[countTime] = row['CPU_limits'];
           } else {
             dataRequest[countTime] = 'noNumber';
             dataLimit[countTime] = 'noNumber';
           }
         } else if (parameterChosen == 'Memory_usage') {
-          if (row['Memory_requests'] && row['Memory_limit']) {
+          if (row['Memory_requests'] && row['Memory_limits']) {
             dataRequest[countTime] = row['Memory_requests'];
-            dataLimit[countTime] = row['Memory_limit'];
+            dataLimit[countTime] = row['Memory_limits'];
           } else {
             dataRequest[countTime] = 'noNumber';
             dataLimit[countTime] = 'noNumber';
           }
-        }
+        } // out of request, limit
 
-        // parameterChosen data
-        if (row[parameterChosen]) {
-          // console.log('ok: ', row);  // use to check the problem date
+        dataChartXDate[countTime] = timeStample_date[rowindex];
+        dataChartXTime[countTime] = timeStample_time[rowindex];
+
+        if ( row[parameterChosen] ) {
           dataChartY[countPodNum][countTime] = row[parameterChosen];
         } else {
-          dataChartY[countPodNum][countTime] = 'noNumber'; // insert data of null when there is nothing
+          dataChartY[countPodNum][countTime] = 'noNumber';
         }
 
-        countPodNum++;
-        
+        if (timeStample_time[rowindex] != timeStample_time[rowindex+1]){ 
+          countPodNum = 0; 
+          countTime++;
+        } else { 
+          countPodNum++; }
+
+      } else {
+        dataChartXDate[countTime] = timeStample_date[rowindex];
+        dataChartXTime[countTime] = timeStample_time[rowindex];
+
+        if ( row[parameterChosen] ) {
+          dataChartY[countPodNum][countTime] = row[parameterChosen];
+        } else {
+          dataChartY[countPodNum][countTime] = 'noNumber';
+        }
       }
 
+      
   } );
+
+  console.log(dataChartXDate);
 
   // Turn string data to Number
   dataRequest = stringToNumber(dataRequest);
   dataLimit = stringToNumber(dataLimit);
-  console.log(dataLimit);
+  // console.log(dataLimit);
   dataThresHold = dataLimit.map( (item) => item/100*70 );
-  console.log(dataThresHold);
+  // console.log(dataThresHold);
   
   // Replace string to number
   for (let i = 0; i < applications[indexApp].maxPod; i++){
@@ -274,30 +259,12 @@ function createData() {
   }
 
   // Turn dataDateX
-  if (selectDateFrom.value == selectDateTo.value) {
-    for (let i = 0; i < dataChartXDate.length; i++) {
-      if (dataChartXDate[i] == selectDateFrom.value) {
-        dateIndex.push(i);
-      }
-    }
-  } else if (selectDateFrom.value < selectDateTo.value) {
-    for (let i = 0; i < dataChartXDate.length; i++) {
-      if (selectDateFrom.value <= dataChartXDate[i] && dataChartXDate[i] <= selectDateTo.value) {
-        dateIndex.push(i);
-      }
-    }
+  for (let i = 0; i < dataChartXDate.length; i++) {
+    dateIndex.push(i);
   }
-
-  // console.log(dateIndex);
-  // console.log(dataChartY);
-
-  for (let i = 0; i < dateIndex.length; i++) {
-    dataChartInXDate.push(dataChartXDate[dateIndex[i]]);
-    dataChartInXTime.push(dataChartXTime[dateIndex[i]]);
-    dataRequestIn.push(dataRequest[dateIndex[i]]);
-    dataLimitIn.push(dataLimit[dateIndex[i]]);
-    dataThresHoldIn.push(dataThresHold[dateIndex[i]]);
-  }
+    
+  console.log(dateIndex);
+  console.log(dataChartY);
 
   for (let k = 0; k < applications[indexApp].maxPod; k++) {
     for (let m = 0; m < dateIndex.length; m++) {
@@ -310,7 +277,7 @@ function createData() {
   for (let i = 0; i < applications[indexApp].maxPod; i++) {
     dataChart[i] = {
       label: 'Pod-' + i, 
-      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataChartY[i] : dataChartInY[i],
+      data: dataChartY[i],
       pointRadius: 0,
       tension: 0.4,
       fill: false,
@@ -318,10 +285,11 @@ function createData() {
     }
   }
 
+  // Insert dataRequest, limit and threshold
   if (parameterChosen == 'CPU_usage' || parameterChosen == 'Memory_usage') {
     dataChart.push({      // push dataRequest
       label: 'Request',
-      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataRequest : dataRequestIn,
+      data: dataRequest,
       borderColor: 'black',
       pointRadius: 0,
       tension: 0.4,
@@ -330,7 +298,7 @@ function createData() {
     });
     dataChart.push({      // push dataLimit
       label: 'Limit',
-      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataLimit : dataLimitIn,
+      data: dataLimit,
       borderColor: 'red',
       pointRadius: 0,
       tension: 0.4,
@@ -339,7 +307,7 @@ function createData() {
     });
     dataChart.push({      // push dataLimit
       label: 'Threshold 70%',
-      data: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataThresHold : dataThresHoldIn,
+      data: dataThresHold,
       borderColor: 'green',
       pointRadius: 0,
       tension: 0.6,
@@ -350,31 +318,6 @@ function createData() {
 
 }
 
-
-// Create option for application
-applications.forEach( (app) => {
-  var option = document.createElement('option');
-  option.value = app.index;
-  option.textContent = app.name;
-  selectApp.appendChild(option);
-} );
-
-// Select application
-selectApp.addEventListener('change', (e) => {
-  indexApp = e.target.value;
-  console.log('You choose application:', applications[indexApp].name);
-});
-
-// Select date From
-selectDateFrom.addEventListener('change', (e) => {
-  console.log('You choose date from: ', e.target.value);
-});
-// Select date To
-selectDateTo.addEventListener('change', (e) => {
-  console.log('You choose date from: ', e.target.value);
-});
-
-
 const ctx = document.getElementById('myChart').getContext('2d');
 
 function createChart(){
@@ -384,7 +327,7 @@ function createChart(){
    } );
 
   const data = {
-    labels: (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? dataChartXDate : ((selectDateFrom.value == selectDateTo.value) ? dataChartInXTime : dataChartInXDate),
+    labels:  dataChartXDate,
     datasets: dataChart
   };
 
@@ -395,9 +338,8 @@ function createChart(){
       title: {
         display: true,
         text: ['Application name: ' + applications[indexApp].name, 
-                'Parameter: ' + parameterChosen + ' (' + unitParameter + ')',
-                (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? ('Date from: ' + dataDate[0]) : ('Date from: ' + selectDateFrom.value),
-                (selectDateFrom.value == 'no_date' || selectDateTo.value == 'no_date') ? ('Date to: ' + dataDate[dataDate.length-1]) : ('Date to: ' + selectDateTo.value) ]
+                'Parameter: ' + parameterChosen + ' (' + unitParameter + ')'
+                ]
       },
       scales: {
         yAxes: [
@@ -424,7 +366,6 @@ function createChart(){
 
 }
 
-
 // Display button to 
 document.getElementById('display-button').addEventListener('click', function () {
   dateIndex = [];
@@ -432,3 +373,4 @@ document.getElementById('display-button').addEventListener('click', function () 
   createData();
   createChart();
 });
+

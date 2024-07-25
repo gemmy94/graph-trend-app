@@ -1,16 +1,16 @@
 [
     {
         "name": "account-management",
-        "maxPod": 12
+        "maxPod": 30
     },
 
     {
         "name": "aota",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "b2b-api-gateway",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "apigw-mysqlbackup-db-fsapps-bkp-backup",
@@ -23,15 +23,15 @@
 
     {
         "name": "billaccountingservice",
-        "maxPod": 8
+        "maxPod": 20
     },
     {
         "name": "batchrenewal",
-        "maxPod": 17
+        "maxPod": 40
     },
     {
         "name": "billcollection",
-        "maxPod": 9
+        "maxPod": 20
     },
     {
         "name": "billdocgenservice",
@@ -39,7 +39,7 @@
     },
     {
         "name": "billeventprocessor",
-        "maxPod": 25
+        "maxPod": 60
     },
     {
         "name": "billgenerator",
@@ -52,11 +52,11 @@
     {
         "name": "billreportservice",
         "preName": ["billreportservice-billreport"],
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "bpf-service",
-        "maxPod": 9
+        "maxPod": 20
     },
     {
         "name": "bss-db-kkp-mysqlinnocluster-inno-cluster",
@@ -72,64 +72,64 @@
     },
     {
         "name": "bssjobschedule",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "case-management",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "ccsprovision",
-        "maxPod": 20
+        "maxPod": 40
     },
     {
         "name": "ccsruleengine",
-        "maxPod": 15
-    },
-    {
-        "name": "ccssubacc",
-        "maxPod": 10
-    },
-    {
-        "name": "cgfm-collector",
-        "maxPod": 20
-    },
-    {
-        "name": "loader",
         "maxPod": 30
     },
     {
+        "name": "ccssubacc",
+        "maxPod": 30
+    },
+    {
+        "name": "cgfm-collector",
+        "maxPod": 50
+    },
+    {
+        "name": "loader",
+        "maxPod": 80
+    },
+    {
         "name": "cgfmapi",
-        "maxPod": 10
+        "maxPod": 20
     },
     {
         "name": "generator",
         "notName": ["billgenerator"],
-        "maxPod": 15
+        "maxPod": 30
     },
     {
         "name": "corenetworkservice",
-        "maxPod": 15
+        "maxPod": 30
     },
     {
-        "name": "dep-inventory",
-        "maxPod": 3
+        "name": "inventory",
+        "maxPod": 10
     },
     {
         "name": "dep-spm",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "document-generation",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "document-service",
-        "maxPod": 15
+        "maxPod": 30
     },
     {
         "name": "eportal",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "file-transfer",
@@ -149,20 +149,20 @@
     },
     {
         "name": "notification-gateway",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "ocd-portal",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "order-capture",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "order-management",
         "notName": ["order-management-new2a", "order-management-newcam", "order-management-recovery2"],
-        "maxPod": 30
+        "maxPod": 60
     },
     {
         "name": "order-management-new2a-mnp",
@@ -182,7 +182,7 @@
     },
     {
         "name": "plan-management",
-        "maxPod": 15
+        "maxPod": 30
     },
     {
         "name": "portal",
@@ -190,83 +190,83 @@
     },
     {
         "name": "portal-gateway",
-        "maxPod": 10
+        "maxPod": 20
     },
     {
         "name": "product-management",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "product-registry",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "quote-management",
-        "maxPod": 10
+        "maxPod": 20
     },
     {
         "name": "rate-composer-service",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "ratingorchestrator",
-        "maxPod": 15
+        "maxPod": 30
     },
     {
         "name": "depscheduler",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
-        "name": "sftp-service-sftpservice",
-        "maxPod": 5
+        "name": "sftp",
+        "maxPod": 20
     },
     {
         "name": "shipment-integration",
-        "maxPod": 15
+        "maxPod": 30
     },
     {
         "name": "smdp-integration",
-        "maxPod": 10
+        "maxPod": 20
     },
     {
         "name": "stock-inventory-stockinventory",
-        "maxPod": 3
-    },
-    {
-        "name": "stock-inventory",
         "maxPod": 10
     },
     {
+        "name": "stock-inventory",
+        "maxPod": 20
+    },
+    {
         "name": "stock-management",
-        "maxPod": 5
+        "maxPod": 10
     },
     {
         "name": "template-management",
-        "maxPod": 3
+        "maxPod": 10
     },
     {
         "name": "template-management-portal",
-        "maxPod": 3
+        "maxPod": 5
     },
     {
         "name": "throttling-service",
-        "maxPod": 5
+        "maxPod": 20
     },
     {
-        "name": "uccrequestservice-uccrequestservice",
-        "maxPod": 3
+        "name": "uccrequestservice",
+        "maxPod": 10
     },
     {
         "name": "user-management",
-        "maxPod": 3
+        "maxPod": 10
     },
     {
         "name": "virtual-inventory",
-        "maxPod": 14
+        "maxPod": 30
     },
     {
         "name": "warehouse-interface",
-        "maxPod": 5
+        "maxPod": 20
     },
     {
         "name": "mno-tot-cb7-crdlcluster",
@@ -301,8 +301,8 @@
         "maxPod": 3
     },
     {
-        "name": "zookeeper-zk",
-        "maxPod": 4
+        "name": "zookeeper",
+        "maxPod": 20
     },
     {
         "name": "crdlcluster22",

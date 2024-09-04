@@ -66,6 +66,7 @@ var dataDate = [];
 var dateIndex = [];
 
 var myChart;
+var averageNumber;
 
 
 // Button create
@@ -89,7 +90,7 @@ document.getElementById('excel-file').addEventListener('change', function(evt) {
 
     // Turn workBook data of excel form into data of json form
     // and save it to variable dataJson
-    const workSheet = workBook.Sheets['tt2r2']; // choose worksheet
+    const workSheet = workBook.Sheets['sn2r2']; // choose worksheet
     dataJson = XLSX.utils.sheet_to_json(workSheet);
     
     console.log(dataJson); // show dataJson
@@ -99,9 +100,7 @@ document.getElementById('excel-file').addEventListener('change', function(evt) {
       timeStample_date.push(date.TimeStamp.split(" ")[0]);
       timeStample_time.push(date.TimeStamp.split(" ")[1]);
     } );
-    console.log(timeStample);
-    console.log(timeStample_date);
-    console.log(timeStample_time);
+    // console.log(timeStample);
 
     // Identify the indexApp
     applications.forEach( (meo,index) => {
@@ -122,6 +121,7 @@ document.getElementById('excel-file').addEventListener('change', function(evt) {
 selectParameter.addEventListener('change', (e) => {
   parameterChosen = e.target.value;
   console.log("Parameter selected: ", parameterChosen);
+  console.log(dataJson);
 });
 
 // Select date From
@@ -147,6 +147,24 @@ function stringToNumber(arr) {
       }
   } );
   return stringNumber;
+}
+// function to check number
+function isNumber(value) {
+  return typeof value === 'number';
+}
+// function to push the element
+function pushElement(arrSource, arrDestination) {
+  arrSource.forEach( (ele) => {
+    if (isNumber(ele)) arrDestination.push(ele);
+  } );
+}
+// function to calculate the average
+function averageArr(arr) {
+  var sum = 0;
+  arr.forEach( (ele) => {
+    sum += ele;
+  } );
+  return sum/arr.length
 }
 
 
@@ -179,7 +197,7 @@ function createData() {
 
 
   dataJson.forEach( (row,rowindex) => {
-    console.log(countPodNum, countTime,rowindex);
+    // console.log(countPodNum, countTime,rowindex);
       if ( rowindex == 0 ) {
         dataChartXDate[countTime] = timeStample_date[rowindex];
         dataChartXTime[countTime] = timeStample_time[rowindex];
@@ -253,11 +271,17 @@ function createData() {
   dataThresHold = dataLimit.map( (item) => item/100*70 );
   // console.log(dataThresHold);
   
+  var dataAverage = [];
   // Replace string to number
   for (let i = 0; i < applications[indexApp].maxPod; i++){
-    dataChartY[i] = stringToNumber(dataChartY[i]);
+    dataChartY[i] = stringToNumber(dataChartY[i]); // Turn the data from string to number 
   }
-
+  for (let m = 0; m < dataChartY.length; m++){
+    pushElement(dataChartY[m],dataAverage);
+  }
+  averageNumber = averageArr(dataAverage);
+  document.getElementById("show-utlization").innerHTML = averageNumber;
+  
   // Turn dataDateX
   for (let i = 0; i < dataChartXDate.length; i++) {
     dateIndex.push(i);
@@ -321,6 +345,7 @@ function createData() {
 const ctx = document.getElementById('myChart').getContext('2d');
 
 function createChart(){
+  // dataAverage = [];
   var unitParameter;
   parameter.forEach( (x) => { 
     if (x['name'] == parameterChosen) {unitParameter = x['unit'];}
@@ -338,7 +363,8 @@ function createChart(){
       title: {
         display: true,
         text: ['Application name: ' + applications[indexApp].name, 
-                'Parameter: ' + parameterChosen + ' (' + unitParameter + ')'
+                'Parameter: ' + parameterChosen + ' (' + unitParameter + ')',
+                'Average of ' + parameterChosen + ' ' + averageNumber + ' (' + unitParameter + ')'
                 ]
       },
       scales: {

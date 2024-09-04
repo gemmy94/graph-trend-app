@@ -27,7 +27,7 @@
     },
     {
         "name": "batchrenewal",
-        "maxPod": 40
+        "maxPod": 20
     },
     {
         "name": "billcollection",
@@ -35,19 +35,19 @@
     },
     {
         "name": "billdocgenservice",
-        "maxPod": 30
-    },
-    {
-        "name": "billeventprocessor",
         "maxPod": 60
     },
     {
+        "name": "billeventprocessor",
+        "maxPod": 70
+    },
+    {
         "name": "billgenerator",
-        "maxPod": 30
+        "maxPod": 50
     },
     {
         "name": "billinvoice",
-        "maxPod": 30
+        "maxPod": 60
     },
     {
         "name": "billreportservice",
@@ -72,7 +72,7 @@
     },
     {
         "name": "bssjobschedule",
-        "maxPod": 10
+        "maxPod": 30
     },
     {
         "name": "case-management",
@@ -105,7 +105,7 @@
     {
         "name": "generator",
         "notName": ["billgenerator"],
-        "maxPod": 30
+        "maxPod": 50
     },
     {
         "name": "corenetworkservice",
@@ -125,7 +125,7 @@
     },
     {
         "name": "document-service",
-        "maxPod": 30
+        "maxPod": 50
     },
     {
         "name": "eportal",
@@ -333,8 +333,8 @@
         "maxPod": 10
     },
     {
-        "name": "kc-mysql-sanda-mysqlinnocluster-inno-cluster",
-        "maxPod": 15
+        "name": "mysql-sanda-mysqlinnocluster-inno-cluster",
+        "maxPod": 10
     },
     {
         "name": "kc-mysql-sanda-router-mysqlrouter-router",
@@ -371,5 +371,61 @@
     {
         "name": "mysql-tot-up-mysqlinnocluster-inno-cluster",
         "maxPod": 15
+    },
+    {
+        "name": "bss-db-kkp-r-mysqlrouter-router",
+        "maxPod": 10
+    },
+    {
+        "name": "crdlcluster13645",
+        "maxPod": 30
+    },
+    {
+        "name": "crdlclustersanprod",
+        "maxPod": 30
+    },
+    {
+        "name": "mysql-inno-cluster",
+        "maxPod": 10
+    },
+    {
+        "name": "order-dashboard-order-dashboard",
+        "maxPod": 10
+    },
+    {
+        "name": "order-dashboard-order-dashboard-ui",
+        "maxPod": 10
+    },
+    {
+        "name": "kafka",
+        "maxPod": 20
+    },
+    {
+        "name": "udsf",
+        "maxPod": 10
+    },
+    {
+        "name": "udsf-core",
+        "maxPod": 10
+    },
+    {
+        "name": "udsf-mgmt",
+        "maxPod": 10
+    },
+    {
+        "name": "udsf-tscoor",
+        "maxPod": 10
+    },
+    {
+        "name": "udsf-tsexp",
+        "maxPod": 10
+    },
+    {
+        "name": "udsf-tsman",
+        "maxPod": 10
+    },
+    {
+        "name": "utility",
+        "maxPod": 20
     }
 ]

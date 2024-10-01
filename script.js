@@ -90,7 +90,7 @@ document.getElementById('excel-file').addEventListener('change', function(evt) {
 
     // Turn workBook data of excel form into data of json form
     // and save it to variable dataJson
-    const workSheet = workBook.Sheets['sn2r2']; // choose worksheet
+    const workSheet = workBook.Sheets['tt2r2']; // choose worksheet
     dataJson = XLSX.utils.sheet_to_json(workSheet);
     
     console.log(dataJson); // show dataJson
@@ -399,4 +399,3 @@ document.getElementById('display-button').addEventListener('click', function () 
   createData();
   createChart();
 });
-

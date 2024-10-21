@@ -23,7 +23,7 @@
 
     {
         "name": "billaccountingservice",
-        "maxPod": 20
+        "maxPod": 30
     },
     {
         "name": "batchrenewal",
